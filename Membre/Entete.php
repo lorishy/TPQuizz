@@ -1,3 +1,4 @@
+<?php require_once "../Modeles/Modele.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -6,8 +6,8 @@ class Question extends Modele {
     private $question; // string
     private $reponses = []; // array of objects
 
-    public function __construct($idQ=null) {
-        if($idQ!=null) {
+    public function __construct($idQ = null) {
+        if($idQ != null) {
             $requete = $this->getBdd()->prepare("SELECT * FROM questions WHERE id_question = ?");
             $requete->execute([$idQ]);
             $LaQuestion = $requete->fetch(PDO::FETCH_ASSOC);

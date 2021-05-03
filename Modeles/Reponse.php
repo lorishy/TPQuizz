@@ -6,9 +6,9 @@ class Reponse extends Modele {
     private $reponse; // string
     private $statut; // booléen (reponse correcte ou incorrecte)
 
-    public function __construct($idR=null) {
+    public function __construct($idR = null) {
         
-        if($idR!=null) {
+        if($idR != null) {
 
             $requete = $this->getBdd()->prepare("SELECT * FROM reponses WHERE id_reponse = ?");
             $requete->execute([$idR]);
@@ -18,5 +18,14 @@ class Reponse extends Modele {
             $this->reponse = $LaReponse["reponse"];
             $this->statut = $LaReponse["statut"];
         }
+    }
+    public function getIdReponse() {
+        return $this->idReponse;
+    }
+    public function getReponse() {
+        return $this->reponse;
+    }
+    public function getStatut() {
+        return $this->statut;
     }
 }

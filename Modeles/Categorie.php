@@ -4,9 +4,10 @@ class Categorie extends Modele {
     private $idCategorie;
     private $nomCategorie;
 
-    public function __construct($idCat=null)
+    public function __construct($idCat = null)
     {
-        if($idCat!=null){
+        if($idCat != null) {
+            
             $requete = $this->getBdd()->prepare("SELECT * FROM categories WHERE id_categorie=?");
             $requete->execute([$idCat]);
             $categorie = $requete->fetch(PDO::FETCH_ASSOC);
@@ -20,7 +21,16 @@ class Categorie extends Modele {
     public function getIdCategorie() {
         return $this->idCategorie;
     }
-    public function setNomCategorie($newCategorie) {
-        return $this->nomCategorie = $newCategorie;
+    public function setNomCategorie($newNomCategorie) {
+        return $this->nomCategorie = $newNomCategorie;
+    }
+    public function setIdCategorie($newIdCategorie) {
+        return $this->idCategorie = $newIdCategorie;
+    }
+    public function getListeCategorie() {
+        $requete = $this->getBdd()->prepare("SELECT * FROM categories");
+        $requete->execute();
+        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+        return $resultat;
     }
 }
