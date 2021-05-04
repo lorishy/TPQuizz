@@ -20,6 +20,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav" style="margin-left : auto">
                 <?php if(isset($_SESSION["email"]) && !empty($_SESSION["email"])) { ?>
+                    <a class="nav-link active" aria-current="page" href="CreerQuizz.php">Créer un Quizz</a>
                     <a class="nav-link active" aria-current="page" href="../Traitements/Deconnexion.php">Déconnexion</a>
                 <?php } else { ?>
                     <a class="nav-link active" aria-current="page" href="inscription.php">Inscription</a>

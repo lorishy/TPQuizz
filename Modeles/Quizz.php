@@ -7,28 +7,38 @@ class Quizz extends Modele {
     private $categorie; // objet
     private $questions = []; // array of objects
 
-    public function __construct($idQuizz = null) {
-
+    public function __construct($idQuizz = null)
+    {
         if($idQuizz !== null){
-
-            $requete = $this->getBdd()->prepare("SELECT titre, idCategorie FROM quizz WHERE idQuizz = ?");
+            $requete = $this->getBdd()->prepare("SELECT titre, id_categorie FROM quizz WHERE id_quizz = ?");
             $requete->execute([$idQuizz]);
-            $infos = $requete->fetch(PDO::FETCH_ASSOC);
-            
-            $this->idQuizz = $idQuizz;
-            $this->titre = $infos["titre"];
-            $this->categorie = new Categorie($infos["idCategorie"]);
+            $infoQuizz = $requete->fetch(PDO::FETCH_ASSOC);
 
-            $requete = $this->getBdd()->prepare("SELECT * FROM questions WHERE idQuizz = ?");
+            $requete = $this->getBdd()->prepare("SELECT * FROM questions WHERE id_quizz = ?"); // on veu initialiser toutes nos question dans quizz donc : on recup toutes les question et toutes les reponses de c question
             $requete->execute([$idQuizz]);
             $questions = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ( $questions as $question ){
+            $this->idQuizz = $idQuizz;
+            $this->titre  = $infoQuizz["titre"];
+            $this->categorie = new Categorie($infoQuizz["id_categorie"]);
 
-                $objetQuestion = new Question($question["idQuestion"]);
+            // Pour chaque question 
+            foreach ( $questions as $question ){
+                $objetQuestion = new Question();
+                $objetQuestion->initialiserQuestion($question["id_question"], $question["question"]);
                 $this->questions[] = $objetQuestion;
             }
         }
+    }
+    public function insertQuizz($titre, $id_categorie, $idUtilisateur)
+    {
+        $requete = $this->getBdd()->prepare("INSERT INTO quizz(titre, id_categorie, id_utilisateur) VALUES(?, ?, ?)");
+        $requete->execute([$titre, $id_categorie, $idUtilisateur]);
+        $requete = $this->getBdd()->prepare("SELECT MAX(id_quizz) AS maximum FROM quizz");
+        $requete->execute();
+        $idQuizz = $requete->fetch(PDO::FETCH_ASSOC);
+        return $idQuizz["maximum"];
+
     }
     public function getIdQuizz() {
         return $this->idQuizz;

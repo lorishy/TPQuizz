@@ -19,6 +19,15 @@ class Reponse extends Modele {
             $this->statut = $LaReponse["statut"];
         }
     }
+    public function initialiserReponse($idReponse, $reponse, $statut) {
+        $this->idReponse = $idReponse;
+        $this->reponse = $reponse;
+        $this->statut = $statut;
+    }
+    public function insertReponse($reponse, $idQuestion, $statut){
+        $requete = $this->getBdd()->prepare("INSERT INTO reponses(reponse, id_question, statut) VALUES (?,?,?)");
+        $requete->execute([$reponse, $idQuestion, $statut]);
+    }
     public function getIdReponse() {
         return $this->idReponse;
     }

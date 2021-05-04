@@ -1,5 +1,4 @@
 <?php require_once "../Modeles/Modele.php";
-      require_once "../Membre/Inscription.php";
 
 if(isset($_POST["inscription"])) {
 

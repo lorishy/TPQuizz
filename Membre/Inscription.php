@@ -1,5 +1,4 @@
-<?php require_once "Entete.php";
-      require_once "../Modeles/Modele.php"?>
+<?php require_once "Entete.php"?>
 
 
 <div class="container">

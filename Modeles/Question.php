@@ -25,6 +25,35 @@ class Question extends Modele {
             }
         }
     }
+    public function initialiserQuestion($idQuestion, $question)
+    {
+        // INI des porops
+        $this->idQuestion = $idQuestion;
+        $this->question = $question;
+
+        $requete = $this->getBdd()->prepare("SELECT * FROM reponses WHERE id_question = ?");
+        $requete->execute([$idQuestion]);
+        $infosReponses = $requete->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach ($infosReponses as $infoReponses) {
+            $objetReponse = new Reponse();
+            $objetReponse->initialiserReponse($infoReponses["id_reponse"], $infoReponses["reponse"], $infoReponses["statut"]);
+            $this->infosReponses[] = $objetReponse;
+        }
+
+    }
+
+    public function insertQuestions($question, $idQuizz)
+    {
+
+        $requete = $this->getBdd()->prepare("INSERT INTO questions(question, id_quizz) VALUES(?, ?)");
+        $requete->execute([$question, $idQuizz]);
+        $requete = $this->getBdd()->prepare("SELECT MAX(id_question) AS maximum FROM questions");
+        $requete->execute();
+        $idQuestion = $requete->fetch(PDO::FETCH_ASSOC);
+        return $idQuestion["maximum"];
+
+    }
     public function getIdQuestion() {
         return $this->idQuestion;
     }
