@@ -1,5 +1,4 @@
-<?php require_once "Entete.php";
-      require_once "../Modeles/Modele.php"; ?>
+<?php require_once "Entete.php"?>
 
 
 
@@ -22,7 +21,7 @@
                         <div class="card-body">
                               <h5 class="card-title"><?=$Categorie["nom"]?></h5>
                               <p class="card-text">Jouez à différents quizz sur le thème de <?=$Categorie["nom"]?>.</p>
-                              <a href="ListeQuizz.php" class="btn btn-danger">Voir les Quizz</a>
+                              <a href="ListeQuizz.php?id=<?=$Categorie["id_categorie"]?>" class="btn btn-danger">Voir les Quizz</a>
                         </div>
                   </div>
             </div>

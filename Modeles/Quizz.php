@@ -69,8 +69,8 @@ class Quizz extends Modele {
     }
     public function getListeQuizz(){
 
-        $requete = $this->getBdd()->prepare("SELECT * FROM quizz");
-        $requete->execute();
+        $requete = $this->getBdd()->prepare("SELECT * FROM quizz WHERE id_categorie = ?");
+        $requete->execute([$_GET["id"]]);
         $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $resultat;
     }

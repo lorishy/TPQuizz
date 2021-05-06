@@ -28,9 +28,15 @@ class Categorie extends Modele {
         return $this->idCategorie = $newIdCategorie;
     }
     public function getListeCategorie() {
-        $requete = $this->getBdd()->prepare("SELECT * FROM categories");
+        $requete = $this->getBdd()->prepare("SELECT * FROM categories ORDER BY nom DESC");
         $requete->execute();
         $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+        return $resultat;
+    }
+    public function getCategorieDuQuizz() {
+        $requete = $this->getBdd()->prepare("SELECT * FROM categories WHERE id_categorie = ?");
+        $requete->execute([$_GET["id"]]);
+        $resultat = $requete->fetch();
         return $resultat;
     }
 }
